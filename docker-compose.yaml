@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  nginx:
+    build: .
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - virtual_network_1
+
+  app1:
+    build: ./app1
+    networks:
+      - virtual_network_1
+
+  app2:
+    build: ./app2
+    networks:
+      - virtual_network_1
+
+networks:
+  virtual_network_1:
+    driver: bridge
